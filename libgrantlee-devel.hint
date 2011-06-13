@@ -1,0 +1,7 @@
+category: KDE
+requires: libgrantlee0 libQtCore4-devel libQtGui4-devel
+external-source: grantlee
+sdesc: "Qt document templating library (runtime)"
+ldesc: "The goal of Grantlee Templates is to make it easier for 
+application developers to separate the structure of documents from the 
+data they contain, opening the door for theming."

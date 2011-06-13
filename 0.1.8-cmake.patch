@@ -1,0 +1,34 @@
+--- origsrc/grantlee-0.1.8/CMakeLists.txt	2011-01-24 02:32:38.000000000 -0600
++++ src/grantlee-0.1.8/CMakeLists.txt	2011-06-12 16:36:19.125100000 -0500
+@@ -20,7 +20,7 @@ set(CMAKE_MODULE_PATH ${Grantlee_SOURCE_
+ if (CMAKE_COMPILER_IS_GNUCXX)
+   set (CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -Wno-long-long -std=iso9899:1990 -Wundef -Wcast-align -Werror-implicit-function-declaration -Wchar-subscripts -Wall -W -Wpointer-arith -Wwrite-strings -Wformat-security -Wmissing-format-attribute -fno-common")
+   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -ansi -Wundef -Wcast-align -Wchar-subscripts -Wall -W -Wpointer-arith -Wformat-security -fno-check-new -fno-common -pedantic-errors")
+-  if (NOT MINGW)
++  if (NOT MINGW AND NOT CYGWIN)
+     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+   else ()
+     # http://mail.kde.org/pipermail/kde-windows/2007-December/001692.html
+--- origsrc/grantlee-0.1.8/cmake/modules/GrantleeConfig.cmake.in	2011-01-24 02:32:38.000000000 -0600
++++ src/grantlee-0.1.8/cmake/modules/GrantleeConfig.cmake.in	2011-06-12 16:44:30.514922700 -0500
+@@ -21,6 +21,9 @@ if (UNIX)
+   if (APPLE)
+     set(Grantlee_TEMPLATES_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_core.dylib")
+     set(Grantlee_TEXTDOCUMENT_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_gui.dylib")
++  elseif (CYGWIN)
++    set(Grantlee_TEMPLATES_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_core.dll.a")
++    set(Grantlee_TEXTDOCUMENT_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_gui.dll.a")
+   else (APPLE)
+     set(Grantlee_TEMPLATES_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_core.so")
+     set(Grantlee_TEXTDOCUMENT_LIBRARY "${Grantlee_LIBRARY_DIR}/libgrantlee_gui.so")
+--- origsrc/grantlee-0.1.8/cmake/modules/GrantleeUse.cmake	2011-01-24 02:32:38.000000000 -0600
++++ src/grantlee-0.1.8/cmake/modules/GrantleeUse.cmake	2011-06-12 16:47:12.084003100 -0500
+@@ -64,7 +64,7 @@ macro(GRANTLEE_ADD_PLUGIN pluginname)
+   endforeach(_filename ${PLUGIN_FILTERS})
+ 
+   qt4_wrap_cpp(_plugin_moc_srcs ${_headers})
+-  add_library(${pluginname} SHARED ${_sources} ${_plugin_moc_srcs})
++  add_library(${pluginname} MODULE ${_sources} ${_plugin_moc_srcs})
+   set_target_properties(${pluginname}
+     PROPERTIES PREFIX ""
+     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/grantlee/${Grantlee_VERSION_MAJOR}.${Grantlee_VERSION_MINOR}"

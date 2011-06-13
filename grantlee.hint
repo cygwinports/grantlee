@@ -1,0 +1,5 @@
+category: KDE
+sdesc: "Qt document templating library (sources)"
+ldesc: "The goal of Grantlee Templates is to make it easier for 
+application developers to separate the structure of documents from the 
+data they contain, opening the door for theming."
