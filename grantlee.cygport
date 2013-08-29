@@ -1,0 +1,19 @@
+inherit qt4-cmake
+
+NAME="grantlee"
+VERSION=0.3.0
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Qt document templating library"
+DESCRIPTION="The goal of Grantlee Templates is to make it easier for
+application developers to separate the structure of documents from the data
+they contain, opening the door for theming."
+HOMEPAGE="http://www.gitorious.org/grantlee/pages/Home"
+SRC_URI="http://downloads.grantlee.org/grantlee-${VERSION}.tar.gz"
+
+PKG_NAMES="libgrantlee0 libgrantlee-devel"
+libgrantlee0_CONTENTS="usr/bin/*-0.dll usr/lib/grantlee/ usr/share/doc/"
+libgrantlee_devel_REQUIRES="libQtCore4-devel libQtGui4-devel"
+libgrantlee_devel_CONTENTS="usr/include/ usr/lib/cmake/ usr/lib/lib*"
+
+CYGCMAKE_ARGS="-DHAVE_GCC_VISIBILITY=NO"
