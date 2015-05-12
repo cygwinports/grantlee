@@ -1,7 +1,7 @@
 inherit qt4-cmake
 
 NAME="grantlee"
-VERSION=0.3.0
+VERSION=0.5.1
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Qt document templating library"
